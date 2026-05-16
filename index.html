@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎀 Buono Rosa - Gio Ama 🎀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #ff99cc;
+            font-family: 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', 'Poppins', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* SFONDO MOVIMENTATO - solo onde e cerchi (niente cuori o san valentino) */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 200, 220, 0.4);
+            animation: floatCircle 15s infinite ease-in-out;
+        }
+
+        @keyframes floatCircle {
+            0% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-40px) translateX(20px) scale(1.1); opacity: 0.6; }
+            100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.3; }
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: repeating-linear-gradient( transparent 0px, transparent 29px, rgba(255, 140, 180, 0.5) 30px, rgba(255, 180, 210, 0.5) 60px);
+            animation: waveMove 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes waveMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        /* stelline che girano (neutre, non amorose) */
+        .floating-star {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: starSpin 18s infinite linear;
+            opacity: 0.4;
+        }
+
+        @keyframes starSpin {
+            0% { transform: rotate(0deg) translateX(0px); opacity: 0.2;}
+            50% { transform: rotate(180deg) translateX(30px); opacity: 0.6;}
+            100% { transform: rotate(360deg) translateX(0px); opacity: 0.2;}
+        }
+
+        /* CARD PRINCIPALE - TUTTO ROSA */
+        .card {
+            max-width: 550px;
+            width: 100%;
+            background: #ffe4f3;
+            border-radius: 70px 40px 70px 40px;
+            box-shadow: 0 35px 55px rgba(0,0,0,0.25), 0 0 0 12px #ff99cc, 0 0 0 20px #ff66aa;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.2s;
+            backdrop-filter: blur(2px);
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        /* header rosa acceso */
+        .hero {
+            background: linear-gradient(135deg, #ff66b5, #ff3388, #ff66cc);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 6px dotted #ffc0e0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff0b5;
+            text-shadow: 5px 5px 0 #c2185b, 3px 3px 0 #ff99cc;
+            font-family: 'Comic Neue', cursive;
+            letter-spacing: 2px;
+            animation: textPulse 1.2s infinite alternate;
+        }
+
+        @keyframes textPulse {
+            0% { text-shadow: 3px 3px 0 #c2185b, 1px 1px 0 #ffb7c5; transform: scale(1);}
+            100% { text-shadow: 7px 7px 0 #ad1457, 4px 4px 0 #ff80b3; transform: scale(1.02);}
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            background: #6a1b3d;
+            display: inline-block;
+            padding: 8px 28px;
+            border-radius: 60px;
+            color: #ffdfb3;
+            margin-top: 15px;
+            font-weight: bold;
+            box-shadow: inset 0 -1px 0 #ff99cc, 0 6px 0 #3d0f26;
+        }
+
+        /* sezione immagine e 5 ingressi ben centrato */
+        .gift-section {
+            background: #fff0f7;
+            padding: 35px 25px 40px;
+            text-align: center;
+        }
+
+        .image-frame {
+            background: #ffd9ea;
+            padding: 12px;
+            border-radius: 55px;
+            display: inline-block;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15), inset 0 0 0 5px #ff99cc, inset 0 0 0 12px #ffc0e0;
+            max-width: 100%;
+        }
+
+        .image-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 44px;
+            display: block;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        /* CENTRATISSIMO 5 INGRESSI */
+        .big-number {
+            margin: 30px 20px 20px;
+            background: radial-gradient(circle at 30% 20%, #ff80bf, #ff4d94);
+            border-radius: 80px;
+            padding: 25px 15px;
+            box-shadow: 0 12px 0 #a13262;
+            text-align: center;
+        }
+
+        .big-number h2 {
+            font-size: 1.9rem;
+            color: #fff3c9;
+            text-shadow: 2px 2px 0 #b82b68;
+            letter-spacing: 2px;
+        }
+
+        .ingressi-box {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .ingressi {
+            font-size: 5.5rem;
+            font-weight: 900;
+            background: #2d1a2a;
+            display: inline-block;
+            padding: 10px 40px;
+            border-radius: 90px;
+            color: #ffcc99;
+            letter-spacing: 12px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 12px #ff6699;
+            box-shadow: inset 0 -2px 0 #dd88aa, 0 5px 0 #441133;
+        }
+
+        .ingressi-small {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff0c0;
+            background: #b82b68;
+            padding: 5px 18px;
+            border-radius: 50px;
+        }
+
+        /* regalo da Maico e Gaia (solo la scritta pulita) */
+        .signature-rose {
+            margin-top: 25px;
+            background: #ffc0e4;
+            border-radius: 70px;
+            padding: 14px;
+            display: inline-block;
+            width: auto;
+            box-shadow: inset 0 1px 6px #ff99cc, 0 6px 0 #bf5f8a;
+        }
+
+        .signature-rose span {
+            background: #ff66aa;
+            padding: 8px 24px;
+            border-radius: 50px;
+            display: inline-block;
+            color: #fff2d7;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .footer-rose {
+            background: #4a1e36;
+            color: #ffc0e4;
+            text-align: center;
+            padding: 14px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* bottone carino che fa solo effetto flash */
+        .glitter-btn {
+            background: #ff80bf;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 3px 0 #a13262;
+            display: inline-block;
+        }
+
+        .glitter-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #a13262;
+        }
+
+        @media (max-width: 550px) {
+            .hero h1 { font-size: 1.8rem; }
+            .ingressi { font-size: 3.2rem; letter-spacing: 6px; padding: 8px 20px; }
+            .big-number h2 { font-size: 1.4rem; }
+            .ingressi-small { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SFONDO SUPER MOVIMENTATO (onde, cerchi, stelle) - NIENTE CUORI -->
+<div class="animated-bg">
+    <div class="wave"></div>
+    <div class="wave" style="height: 80px; opacity: 0.4; animation-duration: 12s; background: repeating-linear-gradient( transparent 0px, transparent 19px, rgba(255,80,120,0.4) 20px, rgba(255,120,160,0.4) 40px);"></div>
+    
+    <!-- cerchi fluttuanti -->
+    <div class="circle" style="width: 180px; height: 180px; top: 10%; left: -60px; background: rgba(255,140,180,0.5); animation-duration: 18s;"></div>
+    <div class="circle" style="width: 250px; height: 250px; bottom: -80px; right: -80px; background: rgba(255,100,150,0.4); animation-duration: 22s; animation-delay: 1s;"></div>
+    <div class="circle" style="width: 120px; height: 120px; top: 60%; left: 85%; background: #ff99dd55; animation-duration: 14s; animation-delay: 2s;"></div>
+    <div class="circle" style="width: 300px; height: 300px; top: 70%; left: -100px; background: #ffc0e066; animation-duration: 25s;"></div>
+    
+    <!-- stelline che girano -->
+    <div class="floating-star" style="top: 15%; left: 5%; animation-duration: 20s;">⭐</div>
+    <div class="floating-star" style="top: 45%; right: 3%; animation-duration: 25s; animation-delay: 2s;">✨</div>
+    <div class="floating-star" style="bottom: 20%; left: 15%; animation-duration: 22s;">🌟</div>
+    <div class="floating-star" style="top: 75%; right: 12%; animation-duration: 18s; animation-delay: 1s;">💫</div>
+    <div class="floating-star" style="top: 85%; left: 45%; animation-duration: 28s;">⭐</div>
+</div>
+
+<!-- CARD ROSA PRINCIPALE -->
+<div class="card">
+    <div class="hero">
+        <h1>🎀 ECCO IL TUO REGALO GIOOOOOO 🎀</h1>
+        <p>✨ tutto rosa per te ✨</p>
+    </div>
+
+    <div class="gift-section">
+        <div class="image-frame">
+            <img id="giftImg" src="immagini/buono_cinema.jpg" alt="Buono Cinema 5 ingressi"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=🌸+CARICA+IL+TUO+BUONO+QUI+🌸&font=montserrat';">
+        </div>
+        
+        <!-- CENTRATISSIMO 5 INGRESSI -->
+        <div class="big-number">
+            <h2>🎟️ BUONO SUPER ROSA 🎟️</h2>
+            <div class="ingressi-box">
+                <div class="ingressi">5</div>
+                <div class="ingressi-small">INGRESSI</div>
+            </div>
+            <p style="margin-top: 12px; color: #fff0cc; font-weight: bold;">🎬 valido per qualsiasi film, anche quelli tristi 🍿</p>
+        </div>
+
+        <!-- SOLO LA FIRMA MAICO & GAIA (senza frasi cringe) -->
+        <div>
+            <div class="signature-rose">
+                <span>💗 REGALO DA MAICO & GAIA 💗</span>
+            </div>
+        </div>
+
+        <!-- bottone carino che fa solo effetto flash (niente cuori o san valentino) -->
+        <div style="margin-top: 22px;">
+            <button id="flashBtn" class="glitter-btn">✨ ROSA SHOCK ✨</button>
+        </div>
+    </div>
+
+    <div class="footer-rose">
+        💖 per Gio Ama – che merita 5 film epici e un mare di glitter 💖<br>
+        
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Mini interazione rosa (solo flash e stelline, niente cuori)
+        const flashBtn = document.getElementById('flashBtn');
+        if(flashBtn) {
+            flashBtn.addEventListener('click', () => {
+                // effetto lampeggio rosa su tutto il body
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = 0;
+                overlay.style.left = 0;
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = '#ff66aa';
+                overlay.style.opacity = '0.5';
+                overlay.style.zIndex = '9999';
+                overlay.style.pointerEvents = 'none';
+                document.body.appendChild(overlay);
+                setTimeout(() => {
+                    overlay.style.transition = 'opacity 0.3s';
+                    overlay.style.opacity = '0';
+                    setTimeout(() => overlay.remove(), 400);
+                }, 120);
+                
+                // crea qualche stellina volante temporanea (neutre, niente cuori)
+                for(let i=0; i<20; i++) {
+                    const star = document.createElement('div');
+                    star.innerText = ['⭐','✨','🌟','💫','⭐','✨'][Math.floor(Math.random()*6)];
+                    star.style.position = 'fixed';
+                    star.style.left = Math.random() * window.innerWidth + 'px';
+                    star.style.bottom = '-30px';
+                    star.style.fontSize = (Math.random() * 24 + 18) + 'px';
+                    star.style.zIndex = '10000';
+                    star.style.pointerEvents = 'none';
+                    star.style.opacity = '0.9';
+                    star.style.transition = 'all 1.2s ease-out';
+                    document.body.appendChild(star);
+                    setTimeout(() => {
+                        star.style.transform = `translateY(-${window.innerHeight + 50}px) rotate(${Math.random() * 360}deg)`;
+                        star.style.opacity = '0';
+                    }, 10);
+                    setTimeout(() => star.remove(), 1400);
+                }
+                if(navigator.vibrate) navigator.vibrate(50);
+            });
+        }
+
+        // messaggio simpatico per l'immagine
+        const imgEl = document.getElementById('giftImg');
+        if(imgEl) {
+            imgEl.addEventListener('click', () => {
+                alert("🖼️ GIO! Qui ci sarà la foto del tuo buono! Mettila nella cartella 'immagini' 🎁🌸");
+            });
+        }
+
+        // piccola scritta in console rosa
+        console.log("%c🌸💗 BUONO ROSA PER GIO - Firmato Maico & Gaia 💗🌸", "color: #ff44aa; font-size: 14px; font-weight: bold; background: #ffe0f0; padding: 5px; border-radius: 30px;");
+    })();
+</script>
+</body>
+</html>
